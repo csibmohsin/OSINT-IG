@@ -1249,10 +1249,10 @@ def build_runner(target: Optional[str], backend: Optional[str] = None) -> Invest
     if backend not in ("instagrapi", None):
         raise InvestigationError(f"Unknown INSTAGRAM_BACKEND: {backend!r} (expected 'instagrapi')")
 
-    from src.instagrapi_backend import (
-        InstagrapiBackendError,
-        InstagrapiClient,
-        resolve_instagrapi_credentials,
+    from osint_ig.instagram import (
+        InstagramProvider,
+        ProviderBackendError,
+        resolve_credentials,
         session_exists,
     )
 
@@ -1261,8 +1261,8 @@ def build_runner(target: Optional[str], backend: Optional[str] = None) -> Invest
             "No Instagram session configured. Go to Settings -> Instagram Connection "
             "or run `python scripts/instagrapi_login.py` / `python scripts/set_session.py`."
         )
-    username, password = resolve_instagrapi_credentials()
+    username, password = resolve_credentials()
     try:
         return InvestigationRunner(target, InstagramProvider(username or "", password or ""))
-    except InstagrapiBackendError as e:
+    except ProviderBackendError as e:
         raise InvestigationError(str(e)) from e
