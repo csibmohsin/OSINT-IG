@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "osint-ig"
+version = "1.0.0"
+description = "OSINT IG — Instagram Intelligence & Investigation Platform by Mohsin Khawaja (CSIB)"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+authors = [
+  { name = "Mohsin Khawaja" }
+]
+dependencies = [
+  "fastapi>=0.110",
+  "uvicorn[standard]>=0.27",
+  "instagrapi>=2.0",
+  "google-genai>=3.5.0",
+  "geopy>=2.0.0",
+]
+
+[project.scripts]
+osint-ig = "osint_ig.cli.commands:main"
+
+[tool.setuptools.packages.find]
+include = ["osint_ig*"]

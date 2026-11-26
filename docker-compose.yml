@@ -1,0 +1,14 @@
+services:
+  osint-ig:
+    container_name: osint-ig
+    build: .
+    # Published on localhost only: the app has no built-in login screen.
+    # Put an authenticated reverse proxy in front if you ever expose it externally.
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      # Your local Instagram session, credentials, and optional Gemini config.
+      - ./config:/home/osintig/config
+      # Cached responses and saved dossiers kept outside the container image.
+      - ./cache:/home/osintig/cache
+      - ./dossier:/home/osintig/dossier
