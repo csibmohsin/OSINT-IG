@@ -1,41 +1,61 @@
 # OSINT IG
 
-**Instagram Intelligence & Investigation Platform**  
-Developed by **Mohsin Khawaja** — **CSIB (Cyber Solutions & Information Board)**
+> **Instagram OSINT tool to collect publicly available details of any public Instagram account.**
 
-OSINT IG is a local-first Instagram intelligence and digital forensics web platform with a modern GUI (Light & Dark themes). It collects, structures, and exports profile, network, content, media, and location intelligence using an authorized `instagrapi` session, with optional post-collection analysis powered by Google Gemini.
+[![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-Local%20Web%20UI-009688.svg)](https://fastapi.tiangolo.com/)
+[![License: GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-green.svg)](LICENSE)
+[![Local-First](https://img.shields.io/badge/Mode-Local--First-8b5cf6.svg)](#-installation--setup)
+
+**OSINT IG** is a local-first Instagram OSINT web platform with **Light & Dark themes**. It collects, structures, maps, and exports public profile, network, content, media, and location details using your authorized `instagrapi` session — with **optional** Google Gemini AI post-collection analysis.
 
 ![OSINT IG Investigation Workspace](docs/assets/osint-ig-ui.png)
 
 ---
 
-## Key Features & GUI Capabilities
+## Key Capabilities
 
-- **Investigation Dashboard**: Live stats for saved investigations, reports, recent targets, Instagram session status, and step-by-step workflow guide.
-- **27 Intelligence Modules**:
-  - **Profile**: Profile Information, Profile Picture.
-  - **Network**: Followers, Following, Mutual Connections, Tagged By Others, Tagged Users, Frequent Commenters.
-  - **Content**: Hashtags, Captions, Comments, Total Comments, Likes Statistics, Posting Activity, Post Comments.
-  - **Media**: Media Breakdown, Photos & Videos (with clickable previews & ZIP download), Stories, Highlights, Media Alt Metadata.
-  - **Location & Discovery**: Geotagged Locations (interactive Leaflet map with Street, Light, and Satellite layers), Place Search, Hashtag Search.
-  - **Public Contacts**: Followers/Following Public Emails & Phone Numbers.
-- **Live Terminal Logs & Expandable Modal**: Stream backend requests in real time and expand logs into a full-screen modal for clear inspection.
-- **Full Case ZIP & Branded Reports**:
-  - **Case ZIP**: Bundles `report.html`, `report.json`, `report.csv`, `manifest.json`, `ai_analysis.md`, `raw_evidence/*.json`, `lists/` (emails, phone numbers, followers, following, hashtags, locations, captions), and downloaded `media/`.
-  - **Single-File Exports**: JSON, CSV, HTML, and Print-to-PDF.
-- **Saved Investigations & Diffs**: Reopen saved dossiers from disk without re-querying Instagram, and compare two runs of the same target.
-- **Light & Dark Theme**: Instant toggle in the top bar or **Settings → Storage & General**.
-- **Optional Google Gemini AI Analysis**: Post-collection analysis (Profile Summary, Hashtag Analysis, Engagement Analysis, Posting Pattern, Q&A, etc.) that strictly separates Observed Facts, Derived Statistics, AI Interpretations, and Unknowns. All OSINT features work without an AI key.
+| Capability | Description |
+|---|---|
+| **Investigation Dashboard** | Live stats for saved investigations, exports, recent targets, Instagram session status, and workflow guide |
+| **27 Intelligence Modules** | Modular lookups across profile, network, content, media, geolocation, and public contacts |
+| **Live Terminal Logs** | Real-time backend request streaming with an expandable full-screen log modal |
+| **Interactive Maps & Previews** | Leaflet geotag map (**Street**, **Light**, **Satellite** layers) plus clickable media grids and ZIP downloads |
+| **Saved Dossiers & Diffs** | Reopen saved investigations from disk without re-querying Instagram and compare two runs side by side |
+| **Light & Dark Theme** | Instant theme switcher in the top bar or **Settings → Storage & General** |
+| **Optional Gemini AI** | Post-collection summaries, hashtag/engagement/posting-pattern analysis, and Q&A *(all OSINT tools work without an AI key)* |
+
+---
+
+## 27 Intelligence Modules
+
+| Category | Modules |
+|---|---|
+| **Profile** | `Profile Information`, `Profile Picture` |
+| **Network** | `Followers`, `Following`, `Mutual Connections`, `Tagged By Others`, `Tagged Users`, `Frequent Commenters` |
+| **Content** | `Hashtags`, `Captions`, `Comments`, `Total Comments`, `Likes Statistics`, `Posting Activity`, `Post Comments` |
+| **Media** | `Media Breakdown`, `Photos & Videos` *(previews + ZIP)*, `Stories`, `Highlights`, `Media Alt Metadata` |
+| **Location & Discovery** | `Geotagged Locations` *(Leaflet map)*, `Place Search`, `Hashtag Search` |
+| **Public Contacts** | `Followers Public Emails`, `Following Public Emails`, `Followers Public Phone Numbers`, `Following Public Phone Numbers` |
+
+---
+
+## Exports & Case Artifacts
+
+| Export Type | Output Contents |
+|---|---|
+| **Full Case ZIP** | `report.html`, `report.json`, `report.csv`, `manifest.json`, `ai_analysis.md`, `raw_evidence/*.json`, `lists/` *(emails, phones, followers, following, hashtags, locations, captions)*, and `media/` |
+| **Single-File Exports** | **JSON**, **CSV**, **HTML**, and **Print-to-PDF** |
 
 ---
 
 ## Installation & Setup
 
 ### Prerequisites
-- **Python 3.10+** (recommended: 3.11 or 3.12)
+- **Python 3.10+** *(recommended: 3.11 or 3.12)*
 - **Git**
 
-### 1. Windows (PowerShell)
+### Windows (PowerShell)
 
 ```powershell
 git clone https://github.com/csibmohsin/OSINT-IG.git
@@ -50,9 +70,10 @@ uvicorn osint_ig.api.app:app --host 127.0.0.1 --port 8000
 python -m osint_ig serve
 ```
 
-> If PowerShell blocks script activation, run `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` or invoke `.\.venv\Scripts\python.exe -m osint_ig serve` directly.
+> [!TIP]
+> If PowerShell blocks script activation, run `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` or launch directly with `.\.venv\Scripts\python.exe -m osint_ig serve`.
 
-### 2. Linux & macOS (Bash / Zsh)
+### Linux & macOS (Bash / Zsh)
 
 ```bash
 git clone https://github.com/csibmohsin/OSINT-IG.git
@@ -67,9 +88,10 @@ uvicorn osint_ig.api.app:app --host 127.0.0.1 --port 8000
 python -m osint_ig serve
 ```
 
-> On Debian/Ubuntu, if `python3 -m venv` is missing, install it first: `sudo apt update && sudo apt install -y python3-venv python3-pip`.
+> [!NOTE]
+> On Debian/Ubuntu, if `python3 -m venv` is unavailable, install it first: `sudo apt update && sudo apt install -y python3-venv python3-pip`.
 
-### 3. Docker
+### Docker
 
 ```bash
 git clone https://github.com/csibmohsin/OSINT-IG.git
@@ -78,42 +100,44 @@ cd OSINT-IG
 docker compose up --build
 ```
 
-Then open **http://127.0.0.1:8000** in your browser.
+Open **http://127.0.0.1:8000** in your browser.
 
 ---
 
 ## Instagram Authentication & Configuration
 
-1. Open **http://127.0.0.1:8000** and go to **Settings → Instagram Connection**.
-2. Choose either:
-   - **Direct Login (Username & Password):** Enter your Instagram username and password and click **Login & Save Credentials**. Use **Verify Connection** at any time to confirm the active session.
-   - **Browser Session ID:** Paste your Instagram `sessionid` cookie from a logged-in browser session and click **Save Session ID** (useful if Instagram challenges direct password login from your IP).
-   - **CLI Helper:** Alternatively, run `python -m osint_ig auth` (or `python -m osint_ig auth --sessionid <cookie>`).
-3. **Private Accounts:** If your logged-in Instagram account already follows a private target account, all modules work on that target just like a public profile. If you do not follow the private account, only basic public profile metadata is accessible.
-4. *(Optional)* Configure a **Google Gemini API key** in **Settings → AI Configuration** for post-collection AI analysis.
+Open **http://127.0.0.1:8000 → Settings → Instagram Connection** and choose one method:
+
+| Method | How to Configure | Best For |
+|---|---|---|
+| **Direct Login** | Enter username & password → **Login & Save Credentials** → **Verify Connection** | Standard local login |
+| **Browser `sessionid`** | Paste your `sessionid` cookie from a logged-in browser → **Save Session ID** | Avoiding IP/login challenges |
+| **CLI Helper** | Run `python -m osint_ig auth` or `python -m osint_ig auth --sessionid <cookie>` | Terminal-first setup |
+
+- **Private Accounts:** Works fully if your logged-in account already follows the private target; otherwise only basic public metadata is accessible.
+- **Optional Gemini AI:** Add your Google Gemini API key under **Settings → AI Configuration** for post-collection analysis *(strictly separates **Observed Facts**, **Derived Statistics**, **AI Interpretations**, and **Unknowns**)*.
 
 See [docs/operator-guide.md](docs/operator-guide.md) and [NOTICE.md](NOTICE.md) for architecture and GPL-3.0 attribution details.
 
 ---
 
-## Terms & Conditions
+## Development & Tests
 
-- **Use at Your Own Risk:** You use **OSINT IG** entirely at your own risk.
-- **OSINT & Research Purpose Only:** This platform is intended strictly for Open Source Intelligence (OSINT), authorized security research, digital forensics, and educational purposes.
-- **Sole Responsibility:** You are solely responsible for any unlawful, unauthorized, or non-compliant activity and for complying with applicable laws and platform Terms of Service. The developer (**Mohsin Khawaja**) assumes no liability for misuse.
+| Platform | Commands |
+|---|---|
+| **Windows (PowerShell)** | `.\.venv\Scripts\pip.exe install -r requirements-dev.txt` <br> `.\.venv\Scripts\python.exe -m pytest` |
+| **Linux / macOS (Bash)** | `pip install -r requirements-dev.txt` <br> `pytest` |
 
 ---
 
-## Development & Tests
+## Terms & Conditions
 
-**Windows (PowerShell):**
-```powershell
-.\.venv\Scripts\pip.exe install -r requirements-dev.txt
-.\.venv\Scripts\python.exe -m pytest
-```
+> [!WARNING]
+> **Use at Your Own Risk.** **OSINT IG** is intended strictly for Open Source Intelligence (OSINT), authorized security research, digital forensics, and educational purposes.
 
-**Linux / macOS (Bash):**
-```bash
-pip install -r requirements-dev.txt
-pytest
-```
+- **Sole Responsibility:** You are solely responsible for complying with applicable laws and platform Terms of Service.
+- **No Liability:** The author assumes no liability for misuse or unauthorized activity.
+
+---
+
+Developed by **Mohsin Khawaja** — **CSIB (Cyber Solutions & Information Board)**
